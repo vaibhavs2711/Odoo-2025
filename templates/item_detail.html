@@ -31,8 +31,13 @@
                             <p><strong>Uploader:</strong> {{ item.uploader.email }}</p>
                             <p><strong>Status:</strong> {% if item.available %}Available{% else %}Not Available{% endif %}</p>
                             <div class="d-grid gap-2">
-                                <a href="#" class="btn btn-success">Swap Request</a>
-                                <a href="#" class="btn btn-outline-light">Redeem via Points</a>
+                                {% if item.available %}
+                                <form method="POST" action="/purchase/{{ item.id }}">
+                                    <button type="submit" class="btn btn-success">Purchase & Earn Points</button>
+                                </form>
+                                {% else %}
+                                <button class="btn btn-secondary" disabled>Not Available</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -42,7 +47,18 @@
         <h4 class="mb-3 text-light">Previous Listings</h4>
         <div class="d-flex flex-row flex-nowrap overflow-auto mb-5" style="gap:24px;">
             <!-- Example previous listings, replace with real data -->
-            <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Denim Jacket</h5></div></div>
+            {% for prev_item in previous_listings %}
+                <div style="min-width:220px;">
+                    <div class="dashboard-item text-center">
+                        {% if prev_item.image_filename %}
+                            <img src="/static/uploads/{{ prev_item.image_filename }}" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;" alt="{{ prev_item.title }}">
+                        {% else %}
+                            <img src="/static/mens.jpeg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;" alt="{{ prev_item.title }}">
+                        {% endif %}
+                        <h5>{{ prev_item.title }}</h5>
+                    </div>
+                </div>
+            {% endfor %}
             <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Summer Dress</h5></div></div>
             <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Classic Tee</h5></div></div>
             <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample1.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Winter Coat</h5></div></div>

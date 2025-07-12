@@ -18,6 +18,14 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(150), nullable=False)
     points = db.Column(db.Integer, default=0)
     items = db.relationship('Item', backref='uploader', lazy=True)
+    purchases = db.relationship('Purchase', backref='buyer', lazy=True)
+
+class Purchase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    timestamp = db.Column(db.DateTime, server_default=db.func.now())
+    item = db.relationship('Item', backref='purchases')
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -88,8 +96,29 @@ def register():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    items = Item.query.filter_by(uploader_id=current_user.id).all()
-    return render_template('dashboard.html', user=current_user, items=items)
+    items = Item.query.all()  # Show all items, including demo products
+    purchases = Purchase.query.filter_by(user_id=current_user.id).count()
+    return render_template('dashboard.html', user=current_user, items=items, purchases=purchases)
+
+# Search route
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('q', '').strip()
+    if query:
+        items = Item.query.filter(
+            (Item.title.ilike(f'%{query}%')) |
+            (Item.description.ilike(f'%{query}%')) |
+            (Item.tags.ilike(f'%{query}%'))
+        ).all()
+    else:
+        items = Item.query.all()
+    return render_template('dashboard.html', user=current_user if current_user.is_authenticated else None, items=items, search_query=query)
+
+# Category filter route
+@app.route('/category/<category_name>')
+def category(category_name):
+    items = Item.query.filter_by(category=category_name).all()
+    return render_template('dashboard.html', user=current_user if current_user.is_authenticated else None, items=items, category=category_name)
 
 @app.route('/add_item', methods=['GET', 'POST'])
 @login_required
@@ -115,20 +144,51 @@ def add_item():
         )
         db.session.add(item)
         db.session.commit()
-        flash('Item added successfully!')
-        return redirect(url_for('dashboard'))
+        return render_template('item_added.html', item=item)
     return render_template('add_item.html', form=form)
+
 
 @app.route('/item/<int:item_id>')
 def item_detail(item_id):
     item = Item.query.get_or_404(item_id)
     return render_template('item_detail.html', item=item)
 
+# Purchase route
+@app.route('/purchase/<int:item_id>', methods=['POST'])
+@login_required
+def purchase(item_id):
+    item = Item.query.get_or_404(item_id)
+    if not item.available:
+        flash('Item is not available.')
+        return redirect(url_for('dashboard'))
+    # Add purchase record
+    purchase = Purchase(user_id=current_user.id, item_id=item.id)
+    db.session.add(purchase)
+    # Update points
+    current_user.points += 10
+    item.available = False
+    db.session.commit()
+    flash('Purchase successful! You earned 10 points.')
+    return redirect(url_for('dashboard'))
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('landing'))
+
+with app.app_context():
+    db.create_all()
+    # Add example products if none exist
+    if Item.query.count() == 0:
+        demo_items = [
+            Item(title='Men T-Shirt', description='Comfortable cotton t-shirt for men.', category='Men', type='T-Shirt', size='L', condition='New', tags='casual,summer', image_filename='sample1.jpg', uploader_id=1),
+            Item(title='Women Dress', description='Elegant evening dress for women.', category='Women', type='Dress', size='M', condition='Like New', tags='party,elegant', image_filename='sample2.jpg', uploader_id=1),
+            Item(title='Kids Shorts', description='Fun shorts for kids.', category='Kids', type='Shorts', size='S', condition='Good', tags='play,summer', image_filename='sample3.jpg', uploader_id=1),
+            Item(title='Unisex Hoodie', description='Warm hoodie for all.', category='Other', type='Hoodie', size='XL', condition='New', tags='winter,unisex', image_filename='sample4.jpg', uploader_id=1)
+        ]
+        db.session.bulk_save_objects(demo_items)
+        db.session.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

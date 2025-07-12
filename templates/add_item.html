@@ -8,52 +8,37 @@
     <link rel="stylesheet" href="/static/modern_additem.css">
 </head>
 <body class="bg-dark text-light">
-    <div class="container mt-5">
-        <div class="additem-hero mb-4">
-            <div class="row">
-                <div class="col-md-5 text-center">
-                    <form method="POST" enctype="multipart/form-data">
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="min-height:100vh;">
+        <div class="d-flex flex-row align-items-center justify-content-center w-100" style="background:#fff;border-radius:28px;box-shadow:0 4px 32px rgba(0,0,0,0.12);padding:48px 32px;gap:56px;max-width:1100px;">
+            <div class="additem-hero d-flex flex-column align-items-center justify-content-center" style="background:linear-gradient(135deg,#44f7b6,#38f9d7);padding:40px 40px;border-radius:28px;min-width:340px;box-shadow:0 2px 16px rgba(68,247,182,0.12);">
+                <h2 class="additem-title mb-4 text-center" style="color:#fff;font-size:2.2rem;font-weight:700;">Add Images</h2>
+                <form method="POST" enctype="multipart/form-data" class="w-100">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="card bg-secondary text-light d-flex align-items-center justify-content-center" style="min-width:400px;box-shadow:0 2px 16px rgba(68,247,182,0.12);border-radius:20px;">
+                <div class="card-body w-100">
+                    <h2 class="additem-title mb-4 text-center">Add Product Description</h2>
+                    <form method="POST" enctype="multipart/form-data" class="w-100">
                         {{ form.hidden_tag() }}
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Add Images</label>
-                            <input type="file" name="image" class="form-control" accept="image/*">
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-7">
-                    <div class="card bg-secondary text-light mb-3">
-                        <div class="card-body">
-                            <h2 class="additem-title mb-2">Add Product Description</h2>
-                            <form method="POST" enctype="multipart/form-data">
-                                {{ form.hidden_tag() }}
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-3">{{ form.title.label(class="form-label") }}{{ form.title(class="form-control") }}</div>
                                 <div class="mb-3">{{ form.description.label(class="form-label") }}{{ form.description(class="form-control") }}</div>
                                 <div class="mb-3">{{ form.category.label(class="form-label") }}{{ form.category(class="form-select") }}</div>
                                 <div class="mb-3">{{ form.type.label(class="form-label") }}{{ form.type(class="form-control") }}</div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="mb-3">{{ form.size.label(class="form-label") }}{{ form.size(class="form-control") }}</div>
                                 <div class="mb-3">{{ form.condition.label(class="form-label") }}{{ form.condition(class="form-control") }}</div>
                                 <div class="mb-3">{{ form.tags.label(class="form-label") }}{{ form.tags(class="form-control") }}</div>
-                                <div class="d-grid">
-                                    {{ form.submit(class="btn btn-success btn-block") }}
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Add Images</label>
+                                    <input type="file" name="image" class="form-control" accept="image/*">
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-grid mb-3">
-                        <button class="btn btn-outline-light">Available/Swap</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h4 class="mb-3 text-light">Previous Listings</h4>
-        <div class="row mb-5">
-            <!-- Example previous listings, replace with real data -->
-            <div class="col-md-3 mb-4"><div class="dashboard-item text-center"><img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Denim Jacket</h5></div></div>
-            <div class="col-md-3 mb-4"><div class="dashboard-item text-center"><img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Summer Dress</h5></div></div>
-            <div class="col-md-3 mb-4"><div class="dashboard-item text-center"><img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Classic Tee</h5></div></div>
-            <div class="col-md-3 mb-4"><div class="dashboard-item text-center"><img src="/static/sample1.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Winter Coat</h5></div></div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+                        <div class="d-grid mt-3">

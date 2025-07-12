@@ -19,6 +19,12 @@
         </div>
     </nav>
     <div class="container-fluid px-5">
+        {% if category %}
+        <div class="mb-4">
+            <h2 class="text-light">Category: {{ category }}</h2>
+            <a href="/dashboard" class="btn btn-outline-light btn-sm">Show All Items</a>
+        </div>
+        {% endif %}
         <div class="dashboard-hero mb-4">
             <div class="d-flex align-items-center justify-content-center" style="gap:48px;">
                 <div class="text-center">
@@ -41,58 +47,72 @@
                     <div class="card bg-secondary text-light mb-2" style="min-width:140px;">
                         <div class="card-body text-center">
                             <h5 class="card-title">Purchases</h5>
-                            <span class="badge bg-warning" style="font-size:1.2rem;">0</span>
+                            <span class="badge bg-warning" style="font-size:1.2rem;">{{ purchases }}</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="dashboard-title">Categories</h2>
+          {% if user %}
+            <a href="{{ url_for('add_item') }}" class="btn btn-success" style="font-weight:600;font-size:1.1rem;">List New Item</a>
+          {% endif %}
+        </div>
+        <div class="categories" style="display:flex;justify-content:center;gap:60px;margin-bottom:40px;">
+          <div style="text-align:center;">
+            <img src="{{ url_for('static', filename='sample1.jpg') }}" alt="Men" style="height:80px;object-fit:cover;border-radius:50%;margin-bottom:10px;">
+            <div>Men</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="{{ url_for('static', filename='sample2.jpg') }}" alt="Women" style="height:80px;object-fit:cover;border-radius:50%;margin-bottom:10px;">
+            <div>Women</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="{{ url_for('static', filename='sample3.jpg') }}" alt="Kids" style="height:80px;object-fit:cover;border-radius:50%;margin-bottom:10px;">
+            <div>Kids</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="{{ url_for('static', filename='sample4.jpg') }}" alt="Other" style="height:80px;object-fit:cover;border-radius:50%;margin-bottom:10px;">
+            <div>Other</div>
+          </div>
         </div>
         <div class="row mb-4">
             <div class="col-md-6">
                 <h3 class="mb-3">My Listings</h3>
                 <div class="d-flex flex-row flex-nowrap overflow-auto" style="gap:24px;">
                     {% for item in items %}
-                    <div style="min-width:220px;">
-                        <div class="dashboard-item text-center">
-                            <img src="/static/uploads/{{ item.image_filename if item.image_filename else 'sample2.jpg' }}" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
-                            <h5>{{ item.title }}</h5>
-                            <p style="font-size:0.95rem;">{{ item.description[:50] }}...</p>
-                            <a href="/item/{{ item.id }}" class="btn btn-outline-light btn-sm">View</a>
+                        {% if item.uploader_id == user.id %}
+                        <div style="min-width:220px;">
+                            <div class="dashboard-item text-center">
+                                {% if item.image_filename %}
+                                    <img src="{{ url_for('static', filename='uploads/' ~ item.image_filename) }}" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
+                                {% endif %}
+                                <h5>{{ item.title }}</h5>
+                                <p style="font-size:0.95rem;">{{ item.description[:50] }}...</p>
+                                <a href="/item/{{ item.id }}" class="btn btn-outline-light btn-sm">View</a>
+                            </div>
                         </div>
-                    </div>
+                        {% endif %}
                     {% else %}
-                    <div style="min-width:220px;"><p>No items uploaded yet.</p></div>
+                        <div style="min-width:220px;"><p>No items uploaded yet.</p></div>
                     {% endfor %}
                 </div>
             </div>
             <div class="col-md-6">
                 <h3 class="mb-3">My Purchases</h3>
                 <div class="d-flex flex-row flex-nowrap overflow-auto" style="gap:24px;">
-                    <!-- Example purchases, replace with real data -->
+                    {% for purchase in user.purchases %}
                     <div style="min-width:220px;">
                         <div class="dashboard-item text-center">
-                            <img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
-                            <h5>Denim Jacket</h5>
-                            <p style="font-size:0.95rem;">Trendy denim jacket for all seasons.</p>
-                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
+                            <h5>{{ purchase.item.title }}</h5>
+                            <p style="font-size:0.95rem;">{{ purchase.item.description[:50] }}...</p>
+                            <a href="/item/{{ purchase.item.id }}" class="btn btn-outline-light btn-sm">View</a>
                         </div>
                     </div>
-                    <div style="min-width:220px;">
-                        <div class="dashboard-item text-center">
-                            <img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
-                            <h5>Summer Dress</h5>
-                            <p style="font-size:0.95rem;">Light and breezy summer dress.</p>
-                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
-                        </div>
-                    </div>
-                    <div style="min-width:220px;">
-                        <div class="dashboard-item text-center">
-                            <img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
-                            <h5>Classic Tee</h5>
-                            <p style="font-size:0.95rem;">Soft cotton tee for everyday wear.</p>
-                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
-                        </div>
-                    </div>
+                    {% else %}
+                    <div style="min-width:220px;"><p>No purchases yet.</p></div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

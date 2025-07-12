@@ -1,0 +1,16 @@
+/* Moved from static/style.css. Add your styles here. */
+body {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+.card {
+    box-shadow: 0 2px 16px rgba(68,247,182,0.12);
+}
+.btn-success {
+    background: linear-gradient(135deg,#44f7b6,#38f9d7);
+    border: none;
+}
+.dashboard-title {
+    font-weight: 700;
+    font-size: 2rem;
+}
