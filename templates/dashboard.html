@@ -5,6 +5,7 @@
     <title>Dashboard | ReWear</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/modern_dashboard.css">
 </head>
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
@@ -17,35 +18,82 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h2 class="text-center">Welcome, {{ user.email }}</h2>
-        <div class="card bg-secondary text-light mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Points Balance: <span class="badge bg-success">{{ user.points }}</span></h5>
+    <div class="container-fluid px-5">
+        <div class="dashboard-hero mb-4">
+            <div class="d-flex align-items-center justify-content-center" style="gap:48px;">
+                <div class="text-center">
+                    <img src="/static/sample1.jpg" class="rounded-circle mb-2" style="width:100px;height:100px;object-fit:cover;box-shadow:0 2px 12px #38f9d7;" alt="Profile">
+                    <h4 class="dashboard-title">{{ user.email }}</h4>
+                </div>
+                <div class="d-flex flex-row align-items-center" style="gap:32px;">
+                    <div class="card bg-secondary text-light mb-2" style="min-width:140px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Points</h5>
+                            <span class="badge bg-success" style="font-size:1.2rem;">{{ user.points }}</span>
+                        </div>
+                    </div>
+                    <div class="card bg-secondary text-light mb-2" style="min-width:140px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Listings</h5>
+                            <span class="badge bg-info" style="font-size:1.2rem;">{{ items|length }}</span>
+                        </div>
+                    </div>
+                    <div class="card bg-secondary text-light mb-2" style="min-width:140px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Purchases</h5>
+                            <span class="badge bg-warning" style="font-size:1.2rem;">0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-md-6">
-                <h3>Your Uploaded Items</h3>
-                {% if items %}
-                <ul class="list-group">
+                <h3 class="mb-3">My Listings</h3>
+                <div class="d-flex flex-row flex-nowrap overflow-auto" style="gap:24px;">
                     {% for item in items %}
-                    <li class="list-group-item bg-dark text-light">
-                        <a href="/item/{{ item.id }}" class="text-success">{{ item.title }}</a>
-                        {% if item.available %}<span class="badge bg-success ms-2">Available</span>{% else %}<span class="badge bg-secondary ms-2">Not Available</span>{% endif %}
-                    </li>
+                    <div style="min-width:220px;">
+                        <div class="dashboard-item text-center">
+                            <img src="/static/uploads/{{ item.image_filename if item.image_filename else 'sample2.jpg' }}" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
+                            <h5>{{ item.title }}</h5>
+                            <p style="font-size:0.95rem;">{{ item.description[:50] }}...</p>
+                            <a href="/item/{{ item.id }}" class="btn btn-outline-light btn-sm">View</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div style="min-width:220px;"><p>No items uploaded yet.</p></div>
                     {% endfor %}
-                </ul>
-                {% else %}
-                <p>No items uploaded yet.</p>
-                {% endif %}
-                <a href="/add_item" class="btn btn-outline-light mt-3">Add New Item</a>
+                </div>
             </div>
             <div class="col-md-6">
-                <h3>Ongoing Swaps</h3>
-                <!-- List ongoing swaps here -->
-                <h3>Completed Swaps</h3>
-                <!-- List completed swaps here -->
+                <h3 class="mb-3">My Purchases</h3>
+                <div class="d-flex flex-row flex-nowrap overflow-auto" style="gap:24px;">
+                    <!-- Example purchases, replace with real data -->
+                    <div style="min-width:220px;">
+                        <div class="dashboard-item text-center">
+                            <img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
+                            <h5>Denim Jacket</h5>
+                            <p style="font-size:0.95rem;">Trendy denim jacket for all seasons.</p>
+                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
+                        </div>
+                    </div>
+                    <div style="min-width:220px;">
+                        <div class="dashboard-item text-center">
+                            <img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
+                            <h5>Summer Dress</h5>
+                            <p style="font-size:0.95rem;">Light and breezy summer dress.</p>
+                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
+                        </div>
+                    </div>
+                    <div style="min-width:220px;">
+                        <div class="dashboard-item text-center">
+                            <img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;">
+                            <h5>Classic Tee</h5>
+                            <p style="font-size:0.95rem;">Soft cotton tee for everyday wear.</p>
+                            <a href="#" class="btn btn-outline-light btn-sm">View</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,89 @@
+/* Modern item detail page enhancements */
+.itemdetail-hero {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(34, 139, 34, 0.25);
+    padding: 32px 24px 24px 24px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1.2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.itemdetail-graphic {
+    width: 80px;
+    margin: 0 auto 18px auto;
+    display: block;
+    z-index: 2;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.card.bg-secondary, .card.bg-dark {
+    background: rgba(34, 34, 34, 0.95) !important;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px 0 rgba(34,139,34,0.18);
+    border: none;
+}
+
+.card-title, .itemdetail-title {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 16px rgba(34,139,34,0.2);
+}
+
+.itemdetail-info {
+    background: #222;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px 0 rgba(34,139,34,0.10);
+    padding: 18px;
+    margin-bottom: 18px;
+    color: #e0ffe0;
+    border: 1px solid #43e97b;
+}
+.itemdetail-info img {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px 0 rgba(34,139,34,0.10);
+}
+.btn-success, .btn-outline-light {
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 32px;
+    box-shadow: 0 4px 16px 0 rgba(34,139,34,0.12);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-success:hover, .btn-outline-light:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 24px 0 rgba(34,139,34,0.18);
+}
+.text-light {
+    color: #e0ffe0 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .itemdetail-hero {
+        padding: 18px 4px 12px 4px;
+    }
+    .itemdetail-title {
+        font-size: 1.4rem;
+    }
+    .itemdetail-graphic {
+        width: 48px;
+    }
+}

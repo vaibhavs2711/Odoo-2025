@@ -5,6 +5,7 @@
     <title>ReWear – Community Clothing Exchange</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/modern_landing.css">
 </head>
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
@@ -18,14 +19,38 @@
             </div>
         </div>
     </nav>
-    <div class="container text-center">
-        <h1 class="display-4">ReWear</h1>
-        <p class="lead">Promote sustainable fashion. Exchange unused clothing with the community!</p>
-        <div class="d-grid gap-2 col-6 mx-auto mb-4">
-            <a href="/register" class="btn btn-success btn-lg">Start Swapping</a>
-            <a href="/dashboard" class="btn btn-outline-light btn-lg">Browse Items</a>
-            <a href="/dashboard" class="btn btn-outline-light btn-lg">List an Item</a>
+    <div class="container-fluid px-5">
+        <!-- Search Bar -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <input type="text" class="form-control form-control-lg" placeholder="Search for clothing, categories, or users..." style="border-radius: 16px;">
+            </div>
         </div>
+        <!-- Hero Section -->
+        <div class="hero-bg text-center mb-5 d-flex flex-row align-items-center justify-content-center" style="gap:40px;">
+            <div>
+                <img src="/static/profile_picture.jpg" alt="Profile Picture" class="rounded-circle shadow" style="width:120px;height:120px;object-fit:cover;border:4px solid #43e97b;">
+            </div>
+            <div>
+                <svg class="clothes-graphic" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="60" width="100" height="8" rx="4" fill="#388e3c"/>
+                    <rect x="20" y="20" width="8" height="40" rx="4" fill="#43e97b"/>
+                    <rect x="92" y="20" width="8" height="40" rx="4" fill="#43e97b"/>
+                    <rect x="20" y="20" width="80" height="8" rx="4" fill="#38f9d7"/>
+                    <ellipse cx="60" cy="44" rx="16" ry="18" fill="#fff" stroke="#43e97b" stroke-width="3"/>
+                    <rect x="52" y="44" width="16" height="20" rx="6" fill="#388e3c"/>
+                    <rect x="60" y="44" width="8" height="20" rx="4" fill="#43e97b"/>
+                </svg>
+            </div>
+            <h1 class="hero-title">ReWear</h1>
+            <p class="hero-lead">Promote sustainable fashion. Exchange unused clothing with the community!</p>
+            <div class="mb-4">
+                <a href="/register" class="btn btn-success btn-lg cta-btn">Start Swapping</a>
+                <a href="/dashboard" class="btn btn-outline-light btn-lg cta-btn">Browse Items</a>
+                <a href="/dashboard" class="btn btn-outline-light btn-lg cta-btn">List an Item</a>
+            </div>
+        </div>
+        <!-- Carousel Section -->
         <div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -43,6 +68,24 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+        <!-- Categories Section -->
+        <h3 class="mb-3 text-light">Categories</h3>
+        <div class="d-flex flex-row flex-nowrap overflow-auto mb-5" style="gap:24px;">
+            <div style="min-width:160px;"><div class="dashboard-item text-center"><img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:60px;object-fit:cover;border-radius:8px;"><div>Men</div></div></div>
+            <div style="min-width:160px;"><div class="dashboard-item text-center"><img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:60px;object-fit:cover;border-radius:8px;"><div>Women</div></div></div>
+            <div style="min-width:160px;"><div class="dashboard-item text-center"><img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:60px;object-fit:cover;border-radius:8px;"><div>Kids</div></div></div>
+            <div style="min-width:160px;"><div class="dashboard-item text-center"><img src="/static/sample1.jpg" class="img-fluid mb-2" style="height:60px;object-fit:cover;border-radius:8px;"><div>Other</div></div></div>
+        </div>
+        <!-- Product Listings Section -->
+        <h3 class="mb-3 text-light">Product Listings</h3>
+        <div class="d-flex flex-row flex-nowrap overflow-auto mb-5" style="gap:24px;">
+            <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample2.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Denim Jacket</h5><p style="font-size:0.95rem;">Trendy denim jacket for all seasons.</p><a href="#" class="btn btn-outline-light btn-sm">View</a></div></div>
+            <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample3.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Summer Dress</h5><p style="font-size:0.95rem;">Light and breezy summer dress.</p><a href="#" class="btn btn-outline-light btn-sm">View</a></div></div>
+            <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample4.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Classic Tee</h5><p style="font-size:0.95rem;">Soft cotton tee for everyday wear.</p><a href="#" class="btn btn-outline-light btn-sm">View</a></div></div>
+            <div style="min-width:220px;"><div class="dashboard-item text-center"><img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Winter Coat</h5><p style="font-size:0.95rem;">Warm and stylish winter coat.</p><a href="#" class="btn btn-outline-light btn-sm">View</a></div></div>
+        </div>
+            <div class="col-md-3 mb-4"><div class="dashboard-item text-center"><img src="/static/sample5.jpg" class="img-fluid mb-2" style="height:120px;object-fit:cover;border-radius:8px;"><h5>Winter Coat</h5><p style="font-size:0.95rem;">Warm and stylish winter coat.</p><a href="#" class="btn btn-outline-light btn-sm">View</a></div></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

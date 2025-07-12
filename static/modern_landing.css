@@ -1,0 +1,89 @@
+/* Modern and vibrant hero section background */
+.hero-bg {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px 0 rgba(168, 237, 234, 0.18);
+    padding: 48px 32px 32px 32px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.hero-title {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #333;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    z-index: 1;
+    position: relative;
+    text-shadow: 0 2px 16px rgba(34,139,34,0.2);
+}
+
+.hero-lead {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 32px;
+    z-index: 1;
+    position: relative;
+}
+
+.cta-btn {
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 32px;
+    padding: 16px 36px;
+    margin: 0 8px 16px 8px;
+    box-shadow: 0 4px 16px 0 rgba(168,237,234,0.12);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.cta-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 24px 0 rgba(34,139,34,0.18);
+}
+
+/* Animated graphic (clothes rack) */
+.clothes-graphic {
+    width: 120px;
+    margin: 0 auto 24px auto;
+    display: block;
+    z-index: 2;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Carousel tweaks */
+.carousel-inner img {
+    border-radius: 18px;
+    box-shadow: 0 4px 24px 0 rgba(34,139,34,0.18);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .hero-bg {
+        padding: 32px 8px 24px 8px;
+    }
+    .hero-title {
+        font-size: 2.1rem;
+    }
+    .clothes-graphic {
+        width: 80px;
+    }
+}
